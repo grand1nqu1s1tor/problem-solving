@@ -25,6 +25,7 @@ public class SortStack {
 
         if (!stack.isEmpty()) {
             int top = stack.pop();
+
             recursiveSortStack(stack);
             insertInt(stack, top);
         }
