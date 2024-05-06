@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class FloydWarshall {
     static int INF = 99999;
@@ -87,6 +88,32 @@ public class FloydWarshall {
         System.out.println(); // Add an extra newline for better separation between iterations
     }
 
+    private static int[][] fastAPSP(int[][] W) {
+        int n = W.length;
+        int[][] L = W.clone();
+        for (int i = 0; i < n; i++) {
+            L[i] = W[i].clone();
+        }
+        for (int m = 1; m < n - 1; m *= 2) {
+            L = minPlusMultiply(L, L);
+        }
+        return L;
+    }
+    private static int[][] minPlusMultiply(int[][] A, int[][] B) {
+        int n = A.length;
+        int[][] C = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(C[i], INF);
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < n; k++) {
+                    if (A[i][k] != INF && B[k][j] != INF)
+                        C[i][j] = Math.min(C[i][j], A[i][k] + B[k][j]);
+                }
+            }
+        }
+        return C;
+    }
+
     public static void main(String[] args) {
 
         //Input weighted directed graph
@@ -102,7 +129,9 @@ public class FloydWarshall {
         printSolution(adjacencyMatrix);
         System.out.println("\n\tSolution Matrix:");
         FloydWarshall(adjacencyMatrix);
-
+       /* System.out.println("FAST-APSP Solution Matrix:");
+        int[][] fastApspResult = fastAPSP(adjacencyMatrix);
+        printSolution(fastApspResult);*/
     }
 }
 //Can't be used for noegative edge cycles.
