@@ -1,8 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-import java.util.*;
-
 public class MatrixBFSTemplate {
     public void bfs(int[][] matrix) {
         // Check for an empty matrix/graph.
