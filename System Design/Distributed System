@@ -1,0 +1,53 @@
+Why Split a System?
+
+Challenges with Large Monolithic Systems:
+
+Codebase is huge, leading to frequent merge conflicts.
+Every change requires system-wide testing and release, creating delays.
+Deployment of even minor changes involves extensive checks, creating inefficiencies.
+
+Benefits of Splitting:
+
+Smaller services (10k–20k lines of code) are easier to manage and deploy independently.
+Developers focus on their specific services, reducing conflicts and dependency issues.
+Faster testing and deployment cycles.
+Each team/service can independently upgrade technology or make changes without affecting others.
+
+Drawbacks of Splitting:
+
+Distributed systems introduce complexities (e.g., communication, consistency, debugging).\
+
+How to Split a System?
+
+Ideal service size: ~10k–20k lines of code.
+One developer should ideally maintain 1–2 services.
+Scale teams and services incrementally as complexity grows.
+
+RPC Frameworks:
+
+Local-Like Function Calls:
+Developers write code as if they are calling local functions, but these calls are executed on remote machines.
+
+Abstracts Communication Details:
+Handles serialization (data conversion), network protocols, and deserialization automatically.
+Manages retries, load balancing, and error handling.
+
+Client-Server Model:
+Client: Makes the request for a service.
+Server: Hosts the implementation of the service.
+
+Benefits:
+Simplifies development by hiding the complexity of network communication.
+Provides built-in features like retries, load balancing, and error handling.
+Supports multiple languages, enabling cross-platform integration.
+Optimizes performance with efficient serialization protocols (e.g., Protobuf in gRPC).
+
+Examples of RPC Frameworks:
+
+Traditional RPC:
+CORBA: Common Object Request Broker Architecture (outdated but influential).
+Java RMI: Remote Method Invocation for Java applications.
+
+Modern RPC Frameworks:
+gRPC: High-performance, language-agnostic framework based on Protocol Buffers.
+Dubbo: A popular Java-based RPC framework, commonly used in microservices.
