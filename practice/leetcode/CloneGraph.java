@@ -1,9 +1,11 @@
+package leetcode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// Definition for a Node.
+// Definition for a leetcode.Node.
 class Node {
     public int val;
     public List<Node> neighbors;
@@ -45,7 +47,7 @@ class CloneGraph {
         Node clonedNode = new Node(node.val);
         encountered.put(node, clonedNode); // Store the new cloned node in the map
 
-        // recursively through the neighbors of the current Node
+        // recursively through the neighbors of the current leetcode.Node
         for (Node neighbor : node.neighbors) {
             // Add the cloned neighbor to the current cloned node's neighbors
             clonedNode.neighbors.add(dfsClone(neighbor, encountered));

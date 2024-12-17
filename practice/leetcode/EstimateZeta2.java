@@ -1,3 +1,5 @@
+package leetcode;
+
 import static java.lang.Math.PI;
 
 public class EstimateZeta2 {

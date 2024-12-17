@@ -1,3 +1,5 @@
+package leetcode;
+
 public class DeleteAdjacentDuplicates {
     public String removeDuplicates(String s) {
         // Use a StringBuilder as a stack for its efficiency in append and delete operations

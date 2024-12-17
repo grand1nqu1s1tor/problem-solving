@@ -1,3 +1,5 @@
+package leetcode;
+
 import java.util.*;
 //BFS from CLRS implementation
 public class GraphBFS {

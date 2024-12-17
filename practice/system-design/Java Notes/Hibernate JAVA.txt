@@ -1,0 +1,63 @@
+Hibernate(Framework) - ORM Tool.Helps eliminate boilerplate JDBC code.
+Uses JPA(Java Persistance API)
+Classes correspond to the table in the DB
+Objects of classes correspond to the rows in DB.
+Automates the process of objecting mapping with each other .
+
+The Problem it addresses:-The relational nature of DB(Tables) doesn't get translated to the
+			  object relationships(java code).
+			 -So ORM(object relational mappping ) helps us address this and map		
+			  relationalships between objects identical to the DB.
+			 -DAO methods not needed to persist the object using SQL queries.
+
+Steps:
+1.)JDBC data configuration : Configure using hibernate.config.xml file and provide the details for DB.
+2.)Model Object(Annotations used to configure):
+  Annotations are used in the model class to help HIBERNATE map the object ot the DB.
+ -@Entity: Used for the model class.
+ -@Id: Used for identifying the attribute of the class as the primary key.
+3.)Service method to create instance of the model object and pass it to the Hibernate API.
+DAO methods not needed to persist the object using SQL queries.
+
+
+USING THE HIBERNATE API:
+========================
+1.)Create a session factory object.
+2.)Create session from session factory object.
+3.)Use the session to save model objects.
+
+Note: We don't have to fetch the record set , and split open the object or write SQL queries. 	
+
+
+
+
+
+Spring Data JPA:
+Model Class 'Student.java' reflects the 'Student' table from the database.
+
+StudentRepository extends JPARepository :
+This is the repository class which is used for data access reducing the boilerplate code.	
+
+
+@Query annotation Spring JPA:
+Used to execute both JPQL and native SQL queries.
+
+1.)JPQL		(handles Sorting without any problem)
+---------
+@Query("SELECT u FROM User u WHERE u.status = 1")
+Collection<User> findAllActiveUsers();
+
+2.)Native SQL	(not possible to define a Sort)
+------------
+@Query(
+  value = "SELECT * FROM USERS u WHERE u.status = 1", 
+  nativeQuery = true)
+Collection<User> findAllActiveUsersNative();
+
+
+
+
+
+
+
+

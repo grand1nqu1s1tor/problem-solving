@@ -1,3 +1,5 @@
+package leetcode;
+
 public class MatrixDFSTemplate {
     public void dfs(int[][] matrix) {
         // Check for an empty matrix/graph.

@@ -1,3 +1,5 @@
+package leetcode;
+
 class WordSearch {
     public boolean exist(char[][] board, String word) {
         int rows = board.length;

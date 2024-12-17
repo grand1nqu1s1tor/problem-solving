@@ -1,3 +1,5 @@
+package leetcode;
+
 class BipartiteResult {
     boolean isBipartite;
     int[] colors;
