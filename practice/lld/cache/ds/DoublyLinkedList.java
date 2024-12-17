@@ -13,7 +13,7 @@ public class DoublyLinkedList<E> {
 
         //Connect the temp pointers since there are no elements currently.
         dummyHead.next = dummyTail;
-        dummyTail.next = dummyHead;
+        dummyTail.prev = dummyHead;
     }
 
     public DoublyLinkedListNode<E> getFirstNode() {
