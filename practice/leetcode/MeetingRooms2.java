@@ -1,10 +1,7 @@
-package practice.leetcode;
-
+package leetcode;
 /*
 Question
 Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), find the minimum number of conference rooms required.
-
-For example, Given [[0, 30],[5, 10],[15, 20]], return 2.
 */
 
 import java.util.Arrays;
@@ -47,7 +44,7 @@ class MeetingRooms2 {
         return rooms;
     }
 
-    public static void main() {
+    public static void main(String args[]) {
         MeetingRooms2 meetingRooms2 = new MeetingRooms2();
 
         int[][] meetings = {{0, 30}, {5, 10}, {15, 20}};
