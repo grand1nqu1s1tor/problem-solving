@@ -27,31 +27,59 @@ class Node {
 }
 
 class CloneGraph {
+
     public Node cloneGraph(Node node) {
-        // EDGE CASE
-        if (node == null) {
-            return null;
-        }
-        //Create a map mapping Old Nodes to New Nodes
-        Map<Node, Node> encountered = new HashMap<>();
-        return dfsClone(node, encountered);
+        // We are given node of an undirected graph
+        // We have to create a clone of it
+        // Nodes in the graph have a list of a neighbors
+
+        Map<Node, Node> oldToNew = new HashMap<>();
+        dfs(node, oldToNew);
+        return oldToNew.get(node);
     }
 
-    public Node dfsClone(Node node, Map<Node, Node> encountered) {
+    public void dfs(Node oldNode, Map<Node, Node> map) {
+        if (oldNode == null)
+            return;
 
-        // Base Case : Return new node(value) mapped to the old node(key)
-        if (encountered.containsKey(node))
-            return encountered.get(node);
+        // If we have cloned the node already
+        if (map.containsKey(oldNode))
+            return;
 
-        // Clone the current node (create a new node with the same value)
-        Node clonedNode = new Node(node.val);
-        encountered.put(node, clonedNode); // Store the new cloned node in the map
+        Node newNode = new Node(oldNode.val);
+        map.put(oldNode, newNode);
 
-        // recursively through the neighbors of the current leetcode.Node
-        for (Node neighbor : node.neighbors) {
-            // Add the cloned neighbor to the current cloned node's neighbors
-            clonedNode.neighbors.add(dfsClone(neighbor, encountered));
+        // Explore neighbors of the old node
+        for (Node neighbor : oldNode.neighbors) {
+            dfs(neighbor, map);
+
+
+            //Most Confusing Line
+            newNode.neighbors.add(map.get(neighbor));
+
         }
-        return clonedNode;
     }
 }
+
+/*
+Steps for Cloning a Graph Using DFS:
+
+1. Process the Current Node:
+   - At the current node, create a new node (clone) with the same value.
+   - Add an entry in the map to track the original node and its clone:
+     map.put(originalNode, clonedNode);
+
+2. Process Neighbors Recursively:
+   - Loop through the neighbors of the current node.
+   - For each neighbor:
+     - Check if the neighbor is already cloned (exists in the map).
+     - If not cloned, recursively call dfs on the neighbor to create its clone.
+
+3. Link Neighbors to the Clone:
+   - Once all neighbors are processed, add their clones (from the map)
+     to the neighbor list of the cloned node created in Step 1.
+
+Why This Works:
+- The map ensures that each node is cloned exactly once.
+- The recursion ensures that all nodes and their connections (neighbors) are cloned deeply.
+*/
