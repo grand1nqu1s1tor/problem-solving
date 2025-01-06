@@ -1,0 +1,119 @@
+1. GET vs POST
+==========================================
+Question:
+When handling requests, would you prefer using GET or POST for retrieving data?
+How do you approach cases where the breadth of potential criteria (e.g., filters) is extensive? Would POST be more suitable in such scenarios?"
+
+Answer:
+
+=> GET: Suitable for simple data retrieval with limited criteria since parameters can be passed in the URL.
+However, it has limitations:
+
+-> URL length constraints.
+-> Sensitive data can be exposed in the URL.
+
+=> POST: Better for scenarios with complex or extensive filtering criteria as the request body can handle large payloads securely and without URL constraints.
+For instance, if a search requires multiple fields (e.g., date ranges, tags, and user preferences), POST is more scalable.
+
+
+2. Parameters, Responses, and Error Codes
+=========================================
+Question:
+What parameters do you expect as input? How would you structure the response?
+ For instance, when would you use JSON objects, numbers, or strings in responses?
+  How do you handle different HTTP response codes like 200, 400, or 500?
+
+Answer:
+
+-> Expected Input:
+Parameters should be clear and well-documented (e.g., required/optional fields).
+Examples: GET /items?sort=last_updated&filter=date_range, or a POST body with a JSON payload for more complex filters.
+
+-> Response Structure:
+Use JSON objects for consistency and hierarchical data representation.
+Strings for identifiers or descriptive data (e.g., names), numbers for metrics, and arrays for lists of entities.
+
+->HTTP Codes:
+200 OK: Successful data retrieval (GET) or action execution (POST).
+400 Bad Request: Invalid or missing parameters.
+404 Not Found: Resource doesn’t exist.
+500 Internal Server Error: Server-side issues.
+
+
+3. Nouns vs. Verbs in URIs
+=========================================
+Question:
+Would you recommend focusing on nouns or verbs in the URI structure for API endpoints?
+For example, should I use /items for fetching a list or /fetchItems?
+
+Answer:
+
+Prefer nouns for RESTful APIs:
+Example: GET /items to fetch a list of items, POST /items to create an item.
+Avoid verbs in the URI; instead, use HTTP methods to define the action.
+E.g., use GET /users/123 for fetching a user instead of /getUser/123.
+
+
+4. Filtering and Pagination
+========================================
+Question:
+"What’s your preferred approach to handling filtering and pagination?
+ For example, would you use a date range or static date for filtering?
+  How would you handle sorting by fields like last_updated?"
+
+Answer:
+
+->Filtering:
+Use query parameters for dynamic filtering, e.g., GET /items?start_date=2023-01-01&end_date=2023-01-31.
+Use date ranges instead of static dates to provide more flexibility.
+->Sorting:
+Include a sort parameter in the query, e.g., GET /items?sort=last_updated.
+Support multiple fields or sorting directions (asc, desc), e.g., sort=last_updated:desc.
+->Pagination:
+Use limit and offset query parameters or page and per_page.
+Example: GET /items?limit=10&offset=20.
+
+
+5. Authorization and Authentication
+=========================================
+Question:
+"When would you decide to add authentication and authorization for API endpoints? How would you typically implement it?"
+
+Answer:
+
+Always clarify the security requirements.
+Example: For public data, no authentication might be required, but sensitive or user-specific data should be secured.
+Authentication: Use tokens like JWTs or OAuth for verifying the user’s identity.
+Authorization: Role-based or permission-based access control to restrict actions for certain users.
+
+
+6. Code Structure
+=========================================
+Question:
+"How would you structure the backend code? Would you use a layered approach like controller, service, and DAO? What specific considerations might influence your choice of ORM (e.g., Hibernate vs. raw JDBC)?"
+
+Answer:
+
+Use a clean layered architecture:
+Controller Layer: Handles HTTP requests and responses.
+Service Layer: Contains business logic.
+DAO Layer: Interacts with the database (via Hibernate, JPA, or raw SQL).
+ORM choice:
+Use Hibernate for complex object-relational mappings or when leveraging JPA features.
+Use raw JDBC for simpler, high-performance applications or when custom SQL is required.
+
+
+7. Database Structure
+=========================================
+Question:
+"Would you want me to design the database schema? How would you handle fast data retrieval (e.g., indexing)?"
+
+Answer:
+
+Design Considerations:
+Use normalized tables for consistent relationships (e.g., items, users, and orders).
+Use indexing on frequently queried fields (e.g., last_updated, user_id).
+File Storage:
+Store metadata in the database and the actual files in an object storage solution like S3.
+Optimizations:
+Use caching (e.g., Redis) for frequent queries or precomputed results.

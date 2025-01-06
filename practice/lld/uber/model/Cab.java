@@ -8,7 +8,6 @@ import lombok.Setter;
 public class Cab {
     String id;
     String driverName;
-
     Trip currentTrip;
     Boolean isAvailable;
 }
