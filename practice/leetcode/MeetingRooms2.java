@@ -21,27 +21,27 @@ class MeetingRooms2 {
         //Sort the array based on starting times
         //Create a min heap based on earliest ending times
 
+/*        int[][] meetings = new int[start.length][2];
+        for(int i = 0; i < start.length; i++){
+            meetings[i][0] = start[i];
+            meetings[i][1] = end[i];
+        }*/
+
         Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
-        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>((a, b) -> a - b);
 
-        //Add the first meeting
-        minHeap.add(meetings[0]);
-        int rooms = 1;
+        int prevEndTime = meetings[0][1];
+        minHeap.offer(prevEndTime);
 
-        for (int i = 1; i < meetings.length; i++) {
-            int currStart = meetings[i][0];
-
-            //If current meeting starts before the earlier ends then we will increase the room count
-            if (currStart < minHeap.peek()[1]) {
-                rooms++;
-            }
-            //If the current meeting start time is after the previous meeting has ended, use the same room
-            else {
+        //[1, 3], [4, 6] [5, 8]
+        for(int i = 1; i < meetings.length; i++){
+            //If the current meeting starts after the earliest ending meeting, Occupy THE SAME ROOM
+            if(meetings[i][0] >= minHeap.peek()){
                 minHeap.poll();
             }
-            minHeap.add(meetings[i]);
+            minHeap.offer(meetings[i][1]);
         }
-        return rooms;
+        return minHeap.size();
     }
 
     public static void main(String args[]) {
