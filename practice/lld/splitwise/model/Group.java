@@ -1,0 +1,30 @@
+public class Group {
+
+    private String groupId;
+    private String groupName;
+    private String List<Users> members;
+    private BalanceManager balanceManager;
+
+    public Group(String groupId, String groupName){
+        this.groupId = groupId;
+        this.groupName = groupName;
+        members = new ArrayList<>();
+        balanceManager = new BalanceManager();
+    }
+
+    public void addMember(User user){
+        members.add(user);
+    }
+
+    public void removeMember(User user){
+        members.remove(user);
+    }
+
+    public void showBalances(){
+        balanceManager.showBalances();
+    }
+
+    public void addExpense(Expense expense){
+        //TODO
+    }
+}
