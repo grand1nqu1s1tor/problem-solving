@@ -1,0 +1,53 @@
+Strategy Pattern:
+================
+
+Examples:
+1.) Search Restaurants based on price, popularity, etc.
+2.) Assign Parking spots based on the parameters of the vehicle.
+3.) Transaction Fee Calculation based on Payment Gateway options.
+
+Code Example:
+
+1.) Have an Interface for the Strategy.
+
+interface PaymentStrategy{
+    Double calculateFee(Double amount);
+}
+
+2.) Have a concrete strategy class implementing the interface.
+
+class UPIPaymentStrategy implements PaymentStrategy{
+    Double calculateFee(Double amount){
+        //algorithm
+    }
+}
+
+class CardPaymentStrategy implements PaymentStrategy{
+    Double calculateFee(Double amount){
+        //algorithm
+    }
+}
+
+Benefits:
+-> We can add algorithms based on different strategies.
+-> Input and output of the strategy is same as the interface,
+   the behaviour of the strategy is different.
+
+
+Factory Pattern:
+================
+
+Examples:
+1.) Chess pieces: King, Queen, Bishop, Knight, Rook, Pawn.
+2.) Characters in Text Editor.
+
+Code Example:
+
+
+Observer Pattern:
+================
+
+We have a subject and we have a number of observers that are subscribed/unsubscribed to the subject.
+Observers are notified when the subject changes.
+
+Examples:
