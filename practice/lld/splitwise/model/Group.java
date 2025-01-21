@@ -24,7 +24,20 @@ public class Group {
         balanceManager.showBalances();
     }
 
-    public void addExpense(Expense expense){
-        //TODO
+    public void addExpense(Expense expense, SplitType splitType){
+        //
+        String payerId = expense.getPayerId();
+        double amount = expense.getAmount();
+        List<String> memberList = expense.getMembers();
+
+        //Validate payer and members
+        for(String member : memberList){
+            if()
+        }
+
     }
 }
+
+
+
+
