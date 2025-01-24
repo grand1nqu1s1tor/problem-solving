@@ -4,21 +4,19 @@ public class Board {
 
     private final char[][] board;
     private char currentPlayer;
+    private boolean isGameOver;
 
     public Board(int n) {
         this.board = new char[n][n];
         initializeBoard();
         this.currentPlayer = 'X';
+        isGameOver = false;
     }
 
     public void initializeBoard() {
         for (char[] row : board) {
             Arrays.fill(row, ' ');
         }
-    }
-
-    public char[][] getBoard() {
-        return board;
     }
 
     public char getCurrentPlayer() {
@@ -42,10 +40,10 @@ public class Board {
 
     //Which player is making the move where
     public char makeMove(char currPlayer, int row, int col) {
-        //Validate Player
-        //if (getCurrentPlayer() != currPlayer) throw new IllegalArgumentException("Invalid Player");
+        // Validate if the game is still on
+        if (isGameOver) throw new IllegalArgumentException("Game is already over");
 
-        //Validate the position
+        // Validate the position
         int n = board.length;
         if (row < 0 || row >= n || col < 0 || col >= n || board[row][col] != ' ') {
             throw new IllegalArgumentException("Invalid Move");
@@ -54,62 +52,75 @@ public class Board {
         // Place the player's move on the board
         board[row][col] = currPlayer;
 
-        //Check if the player won by making this move
+        // Flags to check for a win
+        boolean rowWin = true;
+        boolean colWin = true;
+        boolean diagWin = true;
+        boolean revDiagWin = true;
 
-        //Check the row
-        int cnt = 0;
+        // Check the row
         for (int j = 0; j < n; j++) {
-            if (board[row][j] == currPlayer) cnt++;
-            if (cnt == n) return currPlayer;
+            if (board[row][j] != currPlayer) {
+                rowWin = false;
+                break;
+            }
         }
 
-        //Check the column
-        cnt = 0;
+        // Check the column
         for (int i = 0; i < n; i++) {
-            if (board[i][col] == currPlayer) cnt++;
-            if (cnt == n) return currPlayer;
+            if (board[i][col] != currPlayer) {
+                colWin = false;
+                break;
+            }
         }
 
-        //Check for diagonal
-        boolean winDiagonal = true;
+        // Check the diagonal
         if (row == col) {
             for (int i = 0; i < n; i++) {
                 if (board[i][i] != currPlayer) {
-                    winDiagonal = false;
+                    diagWin = false;
                     break;
                 }
             }
+        } else {
+            diagWin = false; // Not on the diagonal
         }
 
-        //Check for reverse diagonal
-        boolean winRevDiagonal = true;
+        // Check the reverse diagonal
         if (row + col == n - 1) {
             for (int i = 0; i < n; i++) {
                 if (board[i][n - i - 1] != currPlayer) {
-                    winRevDiagonal = false;
+                    revDiagWin = false;
                     break;
                 }
             }
+        } else {
+            revDiagWin = false; // Not on the reverse diagonal
         }
 
-        if (winDiagonal || winRevDiagonal) {
+        // If any flag is true, the current player wins
+        if (rowWin || colWin || diagWin || revDiagWin) {
+            isGameOver = true; // Mark the game as over
+            printBoard();
             return currPlayer;
         }
 
-        //Switch the player at the end if no winner is found
+        // Switch the player at the end if no winner is found
         this.currentPlayer = (this.currentPlayer == 'X') ? 'O' : 'X';
 
-        return ' ';
+        printBoard();
+
+        return ' '; // No winner yet
     }
 
-    public static void main(String[] args) {
-        Board board = new Board(3);
-
-        System.out.println(board.makeMove('X', 0, 0)); // No winner yet
-        System.out.println(board.makeMove('O', 1, 1)); // No winner yet
-        System.out.println(board.makeMove('X', 0, 1)); // No winner yet
-        System.out.println(board.makeMove('O', 2, 2)); // No winner yet
-        System.out.println(board.makeMove('X', 0, 2)); // X wins
+    public void printBoard() {
+        int n = board.length;
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < n; col++) {
+                System.out.print(board[row][col] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
-
 }
