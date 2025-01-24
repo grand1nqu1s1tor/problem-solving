@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class ObserverExample {
 
     public static void main(String[] args) {
@@ -21,40 +22,40 @@ public class ObserverExample {
 }
 
 // Interface for subscribers (observers)
-interface Subscriber{
+interface Subscriber {
     void notify(String message);
 }
 
 //User Class (Observer)
-class User implements Subscriber{
+class User implements Subscriber {
     private String userId;
 
-    public User(String userId){
+    public User(String userId) {
         this.userId = userId;
     }
 
-    public void notify(String message){
+    public void notify(String message) {
         System.out.println("User " + userId + " received message: " + message);
     }
 }
 
 // Group class acting as the subject (publisher)
-class Group{
+class Group {
     private List<Subscriber> users;
 
-    public Group(){
+    public Group() {
         this.users = new ArrayList<>();
     }
 
-    public void subscribe(Subscriber user){
+    public void subscribe(Subscriber user) {
         users.add(user);
     }
 
-    public void unsubscribe(Subscriber user){
+    public void unsubscribe(Subscriber user) {
         users.remove(user);
     }
 
-    public void notifyAllSubscribers(String message){
+    public void notifyAllSubscribers(String message) {
         for (Subscriber user : users) {
             user.notify(message);
         }
