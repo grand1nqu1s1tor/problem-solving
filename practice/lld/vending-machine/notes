@@ -1,0 +1,23 @@
+Relationships:
+---------------
+VendingMachineService -> Inventory, PaymentProcessor, Dispenser
+Product
+Inventory -> InventoryItem
+InventoryItem -> Product
+PaymentProcessor
+Dispenser
+
+Architecture:
+-------------
+Model :
+Product -> int id, String name, double price
+InventoryItem  -> Product product, int quantity
+Inventory -> Map<Integer, InventoryItem>
+PaymentProcessor
+Dispenser
+
+Service :
+VendingMachineService -> Inventory inventoryManager, PaymentProcessor processor, Dispenser dispenser
+
+Methods:
+--------

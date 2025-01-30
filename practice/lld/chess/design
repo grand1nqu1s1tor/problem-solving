@@ -1,0 +1,20 @@
+Board : has cells
+Cell : has ChessPiece
+Chess Piece : 1 King, 1 Queen, 2 Rook, 2 Knight, 2 Bishop, 8 Pawn ; Player
+Player : White/ Black
+
+Associations:
+Board has Cells
+Cells have Chess pieces
+ChessPiece has Player
+
+XX Board has players = Wrong XX
+
+Model:
+-----
+Board -> Cell[][] board
+Cell -> int row, int col, ChessPiece cp
+Chess Piece -> int row, int col, Player player
+Player -> WHITE, BLACK
+
+XXX Wasn't able to relate Player and ChessPiece class XXX
