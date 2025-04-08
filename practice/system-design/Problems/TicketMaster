@@ -1,0 +1,37 @@
+TicketMaster:
+================
+
+Requirements:
+=============
+1. There are multiple events and users can book tickets for them.
+2. After selecting the seat the user makes a "claim" for the ticket, which lasts
+    for x minutes, or if the user pays for it.
+
+Capacity Estimation:
+====================
+1.) 100k Events
+2.) 1 Event : 100 sections, 100 seats per section = 10,000 Seats
+3.) Fields: EventId, SectionId, SeatId, ClaimId, ClaimTime
+4.) 5 fields , Each int = 5 * 4 bytes = 20 bytes
+5.) Total data size = 100,000 * 10,000 * 20 = 20 GB
+6.) We will more data which we will store on disk for historic bookings.
+    But rest of the ticket booking can be stored in memory since it is only 20 GB.
+
+Approaches for Ticket Booking:
+==============================
+X 1.) Tickets are claimed only after the user pays for it.
+    -> This is inconvenient for users.
+    -> In this case, just grab a lock on the seat and ,
+       whoever writes first to the database wins.
+2.) Tickets are claimed wtih a timeout before you pay for them.
+3.) Tickets can be claimed before the payment and others can join a
+    FIFO queue /waiting list.
+
+Note :"Unfair Claim"
+  User get x minutes to pay for the claimed tickets. In this case,
+  we needs our writes to be atomic. For example: User claims 2 tickets and then,
+   if only seat is successfully booked instead of all, we need to revert the transaction.
+
+
+Data Partitioning:
+==================
