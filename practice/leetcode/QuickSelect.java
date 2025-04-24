@@ -23,7 +23,8 @@ private int quickSelect(int[] nums, int left, int right, int k) {
 }
 
 private int partition(int[] nums, int left, int right) {
-    //TODO 
+    //TODO
+    return -1;
 }
 
 private void swap(int[] nums, int i, int j) {

@@ -1,3 +1,7 @@
+package chess;
+
+import tictactoe.Player;
+
 public abstract class ChessPiece {
 
     private Player player;
