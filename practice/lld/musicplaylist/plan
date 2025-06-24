@@ -1,0 +1,28 @@
+Requirements:
+------------
+- User should be able to create and manage playlist.
+- Add/Remove/Reorder songs in the playlist.
+- There can be multiple users, each user can have their own playlists.
+- Playback for songs : Play, Pause, Next
+
+Core Entities:
+--------------
+- User      { userId, name, List<Playlist> }
+- Song      { songId, title, artist, duration }
+- Playlist  { playlistId, userId, name, List<Songs> }
+- SongQueue { Queue<Song> upcoming, Stack<Song> history, Song current, Boolean isPlaying}      //LIFO 'for previously played', FIFO 'for to be played'
+
+Service Classes:
+--------------
+SpotifyService  {
+    Map<String userId, User user> users;                    //TBI in main
+    Map<String songId, Song song> allSongs;                 //TBI in main
+    Map<String userId, SongQueue songQueue> activeQueues;   // Each user can have one active playback queue at a time.
+
+    void createPlaylist(String userId, String playlistName);
+    void addSongToPlaylist(String playlistId, String userId, Song song);
+    void removeSongFromPlaylist(String playlistId, String userId, Song song);
+    void play(String userId, String playlistId);
+    void next(String userId);
+    void previous(String userId);
+}

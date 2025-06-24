@@ -1,0 +1,39 @@
+Requirements :
+------------
+- Park a Vehicle
+- Unpark a Vehicle
+- Support different types of Vehicles
+- Allocate any free slot
+- Assign a Ticket
+- There is a single Floor as of now.
+
+Core Entities :
+----------------
+- Parking Slot  {slotId, vehicle, vehicleType, isOccupied}
+- Vehicle       {licenseNum, vehicleType}
+- Ticket        {ticketId, vehicle, slotId}
+- VehicleType   {BIKE, CAR, TRUCK}
+
+Service Classes :
+-----------------
+- ParkingLotService {
+    List<ParkingSlot>,
+    Map<String, Ticket>,
+    Ticket parkVehicle(Vehicle vehicle){};  // Park using Vehicle object
+    void unParkVehicle(Ticket ticketId){};  // Unpark using the Ticket object
+    }
+
+
+Extensibility:
+---------------
+1.) For multiple floors we can create a new ParkingFloor {int floorNo, List<ParkingSlot> } class.
+2.) We can add a PaymentService class and pricing strategy to support hourly billing.
+    We can add two properties {entryTime, exitTime} to Ticket class
+3.) Right now, we scan a list for the first free slot.
+    But this can be refactored using a SlotAllocationStrategy interface.
+4.) We can add User class for personalization.
+
+
+
+
+
